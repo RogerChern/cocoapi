@@ -470,6 +470,57 @@ class COCOeval:
             stats[10] = _summarize(0, areaRng='medium', maxDets=self.params.maxDets[2])
             stats[11] = _summarize(0, areaRng='large', maxDets=self.params.maxDets[2])
             return stats
+        def _summarizeDetsEx():
+            stats = np.zeros((18,))
+            stats[0] = _summarize(1)
+            stats[1] = _summarize(1, iouThr=.5, maxDets=self.params.maxDets[2])
+            stats[2] = _summarize(1, iouThr=.6, maxDets=self.params.maxDets[2])
+            stats[3] = _summarize(1, iouThr=.7, maxDets=self.params.maxDets[2])
+            stats[4] = _summarize(1, iouThr=.8, maxDets=self.params.maxDets[2])
+            stats[5] = _summarize(1, iouThr=.9, maxDets=self.params.maxDets[2])
+            stats[6] = _summarize(1, areaRng='small', maxDets=self.params.maxDets[2])
+            stats[7] = _summarize(1, areaRng='medium', maxDets=self.params.maxDets[2])
+            stats[8] = _summarize(1, areaRng='large', maxDets=self.params.maxDets[2])
+            stats[9] = _summarize(0, maxDets=self.params.maxDets[2])
+            stats[10] = _summarize(0, iouThr=.5, maxDets=self.params.maxDets[2])
+            stats[11] = _summarize(0, iouThr=.6, maxDets=self.params.maxDets[2])
+            stats[12] = _summarize(0, iouThr=.7, maxDets=self.params.maxDets[2])
+            stats[13] = _summarize(0, iouThr=.8, maxDets=self.params.maxDets[2])
+            stats[14] = _summarize(0, iouThr=.9, maxDets=self.params.maxDets[2])
+            stats[15] = _summarize(0, areaRng='small', maxDets=self.params.maxDets[2])
+            stats[16] = _summarize(0, areaRng='medium', maxDets=self.params.maxDets[2])
+            stats[17] = _summarize(0, areaRng='large', maxDets=self.params.maxDets[2])
+            return stats
+        def _summarizePropsEx():
+            stats = np.zeros((27,))
+            stats[0] = _summarize(0, maxDets=self.params.maxDets[0])
+            stats[1] = _summarize(0, iouThr=.5, maxDets=self.params.maxDets[0])
+            stats[2] = _summarize(0, iouThr=.6, maxDets=self.params.maxDets[0])
+            stats[3] = _summarize(0, iouThr=.7, maxDets=self.params.maxDets[0])
+            stats[4] = _summarize(0, iouThr=.8, maxDets=self.params.maxDets[0])
+            stats[5] = _summarize(0, iouThr=.9, maxDets=self.params.maxDets[0])
+            stats[6] = _summarize(0, areaRng='small', maxDets=self.params.maxDets[0])
+            stats[7] = _summarize(0, areaRng='medium', maxDets=self.params.maxDets[0])
+            stats[8] = _summarize(0, areaRng='large', maxDets=self.params.maxDets[0])
+            stats[9] = _summarize(0, maxDets=self.params.maxDets[1])
+            stats[10] = _summarize(0, iouThr=.5, maxDets=self.params.maxDets[1])
+            stats[11] = _summarize(0, iouThr=.6, maxDets=self.params.maxDets[1])
+            stats[12] = _summarize(0, iouThr=.7, maxDets=self.params.maxDets[1])
+            stats[13] = _summarize(0, iouThr=.8, maxDets=self.params.maxDets[1])
+            stats[14] = _summarize(0, iouThr=.9, maxDets=self.params.maxDets[1])
+            stats[15] = _summarize(0, areaRng='small', maxDets=self.params.maxDets[1])
+            stats[16] = _summarize(0, areaRng='medium', maxDets=self.params.maxDets[1])
+            stats[17] = _summarize(0, areaRng='large', maxDets=self.params.maxDets[1])
+            stats[18] = _summarize(0, maxDets=self.params.maxDets[2])
+            stats[19] = _summarize(0, iouThr=.5, maxDets=self.params.maxDets[2])
+            stats[20] = _summarize(0, iouThr=.6, maxDets=self.params.maxDets[2])
+            stats[21] = _summarize(0, iouThr=.7, maxDets=self.params.maxDets[2])
+            stats[22] = _summarize(0, iouThr=.8, maxDets=self.params.maxDets[2])
+            stats[23] = _summarize(0, iouThr=.9, maxDets=self.params.maxDets[2])
+            stats[24] = _summarize(0, areaRng='small', maxDets=self.params.maxDets[2])
+            stats[25] = _summarize(0, areaRng='medium', maxDets=self.params.maxDets[2])
+            stats[26] = _summarize(0, areaRng='large', maxDets=self.params.maxDets[2])
+            return stats
         def _summarizeKps():
             stats = np.zeros((10,))
             stats[0] = _summarize(1, maxDets=20)
@@ -490,6 +541,10 @@ class COCOeval:
             summarize = _summarizeDets
         elif iouType == 'keypoints':
             summarize = _summarizeKps
+        elif iouType == 'bbox_ex':
+            summarize = _summarizeDetsEx
+        elif iouType == 'proposal_ex':
+            summarize = _summarizePropsEx
         self.stats = summarize()
 
     def __str__(self):
