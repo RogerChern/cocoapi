@@ -142,7 +142,7 @@ class COCOeval:
         # loop through images, area range, max detection number
         catIds = p.catIds if p.useCats else [-1]
 
-        if p.iouType == 'segm' or p.iouType == 'bbox':
+        if p.iouType == 'segm' or p.iouType == 'bbox' or p.iouType == 'bbox_ex' or p.iouType == 'proposal_ex':
             computeIoU = self.computeIoU
         elif p.iouType == 'keypoints':
             computeIoU = self.computeOks
@@ -179,7 +179,7 @@ class COCOeval:
         if p.iouType == 'segm':
             g = [g['segmentation'] for g in gt]
             d = [d['segmentation'] for d in dt]
-        elif p.iouType == 'bbox':
+        elif p.iouType == 'bbox' or p.iouType == 'bbox_ex' or p.iouType == 'proposal_ex':
             g = [g['bbox'] for g in gt]
             d = [d['bbox'] for d in dt]
         else:
@@ -578,7 +578,7 @@ class Params:
         self.useCats = 1
 
     def __init__(self, iouType='segm'):
-        if iouType == 'segm' or iouType == 'bbox':
+        if iouType == 'segm' or iouType == 'bbox' or iouType == 'bbox_ex' or iouType == 'proposal_ex':
             self.setDetParams()
         elif iouType == 'keypoints':
             self.setKpParams()
